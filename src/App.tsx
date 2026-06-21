@@ -3,6 +3,8 @@ import './App.scss';
 import todosFromServer from './api/todos';
 import usersFromServer from './api/users';
 import { TodoList } from './components/TodoList';
+import { TodoInfo } from './components/TodoInfo';
+import { UserInfo } from './components/UserInfo';
 
 const initialTodos = todosFromServer.map(todo => ({
   ...todo,
@@ -118,7 +120,14 @@ export const App = () => {
         </button>
       </form>
 
-      <TodoList todos={todos} />
+      <TodoList
+        todos={todos}
+        renderTodo={todoItem => (
+          <TodoInfo key={todoItem.id} todo={todoItem}>
+            <UserInfo user={todoItem.user} />
+          </TodoInfo>
+        )}
+      />
     </div>
   );
 };

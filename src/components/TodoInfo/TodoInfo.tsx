@@ -1,5 +1,4 @@
 import React from 'react';
-import { UserInfo } from '../UserInfo';
 
 interface User {
   id: number;
@@ -18,16 +17,17 @@ interface Todo {
 
 interface Props {
   todo: Todo;
+  children?: React.ReactNode;
 }
 
-export const TodoInfo: React.FC<Props> = ({ todo }) => {
+export const TodoInfo: React.FC<Props> = ({ todo, children }) => {
   return (
     <article
       data-id={todo.id}
       className={`TodoInfo ${todo.completed ? 'TodoInfo--completed' : ''}`}
     >
       <h2 className="TodoInfo__title">{todo.title}</h2>
-      <UserInfo user={todo.user} />
+      {children}
     </article>
   );
 };
