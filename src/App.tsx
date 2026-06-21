@@ -6,7 +6,8 @@ import { TodoList } from './components/TodoList';
 
 const initialTodos = todosFromServer.map(todo => ({
   ...todo,
-  user: usersFromServer.find(u => u.id === todo.userId) || usersFromServer[0],
+  user:
+    usersFromServer.find(user => user.id === todo.userId) || usersFromServer[0],
 }));
 
 export const App = () => {
@@ -17,16 +18,16 @@ export const App = () => {
   const [titleError, setTitleError] = useState(false);
   const [userError, setUserError] = useState(false);
 
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
     const sanitizedValue = value.replace(/[^a-zA-Zа-яА-ЯёЁіІїЇєЄґҐ0-9 ]/g, '');
 
     setTitle(sanitizedValue);
     setTitleError(false);
   };
 
-  const handleUserChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setUserId(e.target.value);
+  const handleUserChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setUserId(event.target.value);
     setUserError(false);
   };
 
@@ -48,13 +49,16 @@ export const App = () => {
       return;
     }
 
-    const selectedUser = usersFromServer.find(u => u.id === Number(userId));
+    const selectedUser = usersFromServer.find(
+      user => user.id === Number(userId),
+    );
 
     if (!selectedUser) {
       return;
     }
 
-    const maxId = todos.length > 0 ? Math.max(...todos.map(t => t.id)) : 0;
+    const maxId =
+      todos.length > 0 ? Math.max(...todos.map(todo => todo.id)) : 0;
 
     const newTodo = {
       id: maxId + 1,
